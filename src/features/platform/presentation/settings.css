@@ -1,0 +1,227 @@
+.settings-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.65fr) minmax(270px, 1fr);
+  gap: 24px;
+}
+.settings-panel {
+  padding: 0 24px 24px;
+  margin-bottom: 22px;
+}
+.settings-panel .panel-heading {
+  padding-inline: 0;
+}
+.mode-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 11px;
+  margin: 0 0 25px;
+}
+.mode-option {
+  position: relative;
+  display: block;
+  text-align: right;
+  border: 1px solid #e3e9e4;
+  padding: 17px;
+  border-radius: 8px;
+}
+.mode-option.chosen {
+  border-color: #568567;
+  background: #f4f8f3;
+}
+.mode-option strong {
+  font-size: 12px;
+  font-weight: 650;
+}
+.mode-option small {
+  display: block;
+  color: #92a096;
+  font-size: 9px;
+  line-height: 1.9;
+  margin-top: 7px;
+}
+.mode-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-left: 8px;
+  background: currentColor;
+}
+.radio-circle {
+  position: absolute;
+  left: 12px;
+  top: 15px;
+  border: 1px solid #d5ddd7;
+  width: 17px;
+  height: 17px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  color: #fff;
+}
+.chosen .radio-circle {
+  background: #427c54;
+  border-color: #427c54;
+}
+.toggle-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  border-top: 1px solid var(--line);
+  padding-top: 20px;
+  margin: 20px 0 0;
+}
+.toggle-row strong {
+  font-size: 12px;
+}
+.toggle-row small {
+  display: block;
+  color: #8b9b90;
+  margin-top: 5px;
+  font-size: 10px;
+}
+.toggle-row input {
+  width: 18px;
+  height: 18px;
+  accent-color: #37784b;
+}
+.phone-panel {
+  padding-bottom: 20px;
+}
+.phone {
+  width: 228px;
+  min-height: 393px;
+  border: 5px solid #e1e6df;
+  border-radius: 29px;
+  margin: 8px auto 20px;
+  padding: 20px 17px;
+  background: #fafcf9;
+  position: relative;
+  overflow: hidden;
+}
+.phone-notch {
+  height: 13px;
+  width: 70px;
+  background: #e1e6df;
+  border-radius: 0 0 10px 10px;
+  position: absolute;
+  top: 0;
+  left: calc(50% - 35px);
+}
+.phone-brand {
+  text-align: center;
+  font-family: Arial, sans-serif;
+  font-size: 23px;
+  font-weight: 800;
+  color: #346649;
+  letter-spacing: -1px;
+  margin: 10px 0 25px;
+}
+.phone-welcome {
+  font-size: 14px;
+  margin: 15px 0;
+}
+.skeleton-line {
+  height: 10px;
+  background: #e9eee6;
+  border-radius: 4px;
+  margin-top: 24px;
+}
+.skeleton-line.short {
+  width: 65%;
+  margin-top: 10px;
+}
+.skeleton-card {
+  height: 100px;
+  background: #eef2eb;
+  border-radius: 10px;
+  margin-top: 28px;
+}
+.phone-message {
+  text-align: center;
+  padding-top: 14px;
+}
+.phone-message h3 {
+  font-size: 15px;
+  margin: 15px 0 8px;
+  overflow-wrap: anywhere;
+}
+.phone-message p {
+  font-size: 10px;
+  color: #8a998b;
+  overflow-wrap: anywhere;
+  white-space: pre-line;
+}
+.phone-message small {
+  display: block;
+  overflow-wrap: anywhere;
+  font-size: 9px;
+  margin-top: 15px;
+}
+.phone-retry {
+  display: block;
+  background: #3a744d;
+  color: white;
+  border-radius: 5px;
+  padding: 7px;
+  font-size: 10px;
+  margin-top: 24px;
+}
+.preview-note {
+  font-size: 10px;
+  text-align: center;
+  padding-inline: 18px;
+}
+.settings-note {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  color: #89a18c;
+  padding: 20px 12px;
+}
+.settings-note svg {
+  flex-shrink: 0;
+  margin-top: 5px;
+}
+.settings-note p {
+  font-size: 11px;
+}
+.save-bar {
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  background: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 17px 24px;
+  margin-top: 8px;
+  font-size: 11px;
+  color: #8f9e92;
+}
+.mode-option {
+  text-align: start;
+}
+.mode-option strong {
+  font-size: 13px;
+}
+.mode-option small {
+  font-size: 10px;
+}
+.mode-dot {
+  margin-left: 0;
+  margin-inline-end: 8px;
+}
+.radio-circle {
+  left: auto;
+  inset-inline-end: 12px;
+}
+.settings-note p {
+  font-size: 12px;
+}
+.preview-note {
+  font-size: 11px;
+}
+.save-bar .primary {
+  min-width: 155px;
+}

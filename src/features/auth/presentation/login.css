@@ -1,0 +1,81 @@
+.login {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 100vh;
+}
+.login-story {
+  background: #122d21;
+  color: white;
+  padding: 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  background-image: radial-gradient(
+    ellipse at 5% 80%,
+    #355a3b 0,
+    transparent 65%
+  );
+}
+.login-story .brand {
+  justify-content: flex-end;
+  max-width: 220px;
+}
+.login-story h1 {
+  font-size: 50px;
+  line-height: 1.7;
+  margin: 20px 0;
+}
+.login-story p {
+  color: #a5bba7;
+  font-size: 15px;
+}
+.login-story small {
+  color: #779982;
+  font-size: 9px;
+  letter-spacing: 2px;
+}
+.login-form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  padding: 35px;
+}
+.login-form form {
+  max-width: 360px;
+  width: 100%;
+}
+.login-form h2 {
+  font-size: 25px;
+  margin: 22px 0 8px;
+}
+.login-form .muted {
+  margin-bottom: 35px;
+}
+.login-note {
+  color: #9aac9c;
+  font-size: 10px;
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  justify-content: center;
+  margin-top: 25px;
+}
+.login-form {
+  position: relative;
+}
+.login-language {
+  position: absolute;
+  top: 30px;
+  inset-inline-end: 35px;
+}
+.login-story h1 {
+  max-width: 470px;
+}
+.login-story p {
+  max-width: 420px;
+}
+.login-story .brand {
+  justify-content: flex-start;
+}

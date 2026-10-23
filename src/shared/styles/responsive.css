@@ -1,0 +1,413 @@
+@media (min-width: 1550px) {
+  .content {
+    padding-top: 45px;
+  }
+  .stats-grid {
+    gap: 25px;
+  }
+  .stat-card {
+    padding: 25px;
+  }
+}
+@media (max-width: 1180px) {
+  .sidebar {
+    width: 215px;
+    padding-inline: 15px;
+  }
+  .main {
+    margin-right: 215px;
+    width: calc(100% - 215px);
+  }
+  .content {
+    padding: 28px 24px 0;
+  }
+  .topbar {
+    padding: 0 24px;
+  }
+  .stats-grid {
+    gap: 12px;
+  }
+  .stat-card {
+    padding: 15px;
+  }
+  .status-banner {
+    gap: 12px;
+  }
+  .status-banner > button {
+    padding-right: 10px;
+  }
+  .overview-grid {
+    gap: 17px;
+  }
+  .settings-grid {
+    grid-template-columns: 1fr;
+  }
+  .settings-grid > aside {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+  .page-heading h1 {
+    font-size: 23px;
+  }
+}
+@media (max-width: 850px) {
+  .sidebar {
+    transform: translateX(100%);
+    transition: transform 0.2s;
+    width: 248px;
+  }
+  .sidebar.open {
+    transform: none;
+  }
+  .main {
+    margin-right: 0;
+    width: 100%;
+  }
+  .mobile-menu {
+    display: inline-flex;
+  }
+  .scrim {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background: #12251d66;
+    z-index: 25;
+  }
+  .stats-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .topbar {
+    height: 65px;
+  }
+  .top-meta {
+    font-size: 0;
+    gap: 4px;
+  }
+  .top-meta .avatar {
+    font-size: 13px;
+  }
+  .content {
+    padding: 24px 18px 0;
+  }
+  .page-heading {
+    align-items: flex-start;
+  }
+  .page-heading h1 {
+    font-size: 22px;
+  }
+  .page-heading .secondary {
+    font-size: 0;
+    padding: 10px;
+  }
+  .status-banner {
+    flex-wrap: wrap;
+    padding: 19px;
+  }
+  .status-banner > button {
+    border: 0;
+    padding: 0;
+    margin-right: auto;
+  }
+  .status-banner > .badge {
+    margin-right: 0;
+  }
+  .overview-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .table-toolbar {
+    flex-wrap: wrap;
+  }
+  .table-toolbar .search {
+    flex-basis: 100%;
+  }
+  .login-story {
+    padding: 35px;
+  }
+  .login-story h1 {
+    font-size: 35px;
+  }
+  .login-story p {
+    font-size: 12px;
+  }
+}
+@media (max-width: 580px) {
+  .overview-grid,
+  .login {
+    grid-template-columns: 1fr;
+  }
+  .login-story {
+    min-height: 300px;
+    padding: 30px;
+  }
+  .login-story h1 {
+    font-size: 30px;
+    margin: 12px 0;
+  }
+  .login-story p,
+  .login-story > small {
+    display: none;
+  }
+  .login-form {
+    padding: 35px 25px;
+  }
+  .login-form h2 {
+    font-size: 22px;
+  }
+  .status-banner h2 {
+    font-size: 18px;
+  }
+  .status-banner .status-icon {
+    height: 43px;
+    width: 43px;
+  }
+  .status-banner p {
+    font-size: 10px;
+  }
+  .status-banner > .badge {
+    font-size: 9px;
+  }
+  .stats-grid {
+    gap: 10px;
+  }
+  .stat-card {
+    padding: 13px;
+  }
+  .stat-card > strong {
+    font-size: 29px;
+  }
+  .stat-card small {
+    font-size: 8px;
+    line-height: 1.9;
+  }
+  .stat-top {
+    font-size: 10px;
+  }
+  .stat-top svg {
+    width: 17px;
+  }
+  .page-heading .eyebrow {
+    font-size: 8px;
+  }
+  .page-heading h1 {
+    font-size: 19px;
+  }
+  .page-heading p {
+    font-size: 10px;
+  }
+  .settings-grid > aside {
+    grid-template-columns: 1fr;
+  }
+  .mode-grid {
+    gap: 8px;
+  }
+  .mode-option {
+    padding: 14px 10px;
+  }
+  .mode-option strong {
+    font-size: 10px;
+  }
+  .mode-option small {
+    font-size: 8px;
+  }
+  .radio-circle {
+    left: 7px;
+    top: 7px;
+    width: 12px;
+    height: 12px;
+  }
+  .settings-panel {
+    padding-inline: 16px;
+  }
+  .save-bar {
+    gap: 12px;
+    padding: 14px;
+  }
+  .save-bar > span {
+    font-size: 9px;
+    max-width: 115px;
+  }
+  .save-bar .primary {
+    font-size: 10px;
+    padding: 10px;
+  }
+  .topbar {
+    padding-inline: 18px;
+  }
+  .breadcrumb {
+    font-size: 10px;
+    gap: 7px;
+  }
+  .panel-heading {
+    padding: 20px;
+  }
+  .health-panel h2 br {
+    display: none;
+  }
+  td,
+  th {
+    padding: 14px 17px;
+  }
+  .modal {
+    padding: 24px;
+  }
+  footer {
+    font-size: 9px;
+  }
+}
+@media (max-width: 1180px) {
+  .main {
+    margin-right: 0;
+    margin-inline-start: 215px;
+    width: calc(100% - 215px);
+  }
+  .stat-top {
+    font-size: 11px;
+  }
+  .page-heading h1 {
+    font-size: 25px;
+  }
+}
+@media (max-width: 850px) {
+  .main {
+    margin-inline-start: 0;
+    width: 100%;
+  }
+  .sidebar {
+    transform: translateX(-100%);
+  }
+  html[dir="rtl"] .sidebar {
+    transform: translateX(100%);
+  }
+  .sidebar.open,
+  html[dir="rtl"] .sidebar.open {
+    transform: translateX(0);
+  }
+  .top-meta {
+    font-size: 11px;
+    gap: 9px;
+  }
+  .connection-label {
+    display: none;
+  }
+  .language-switch > svg {
+    display: none;
+  }
+  .language-switch button {
+    font-size: 10px;
+    padding: 4px 7px;
+  }
+  .topbar {
+    padding-inline: 16px;
+    gap: 10px;
+  }
+  .page-heading h1 {
+    font-size: 23px;
+  }
+  .page-heading .secondary {
+    font-size: 0;
+  }
+  .status-banner > button {
+    margin-right: 0;
+    margin-inline-start: auto;
+    padding-inline-start: 0;
+    border: 0;
+  }
+  .status-banner > .badge {
+    margin-inline-start: 0;
+  }
+  .quick-actions strong {
+    font-size: 12px;
+  }
+  .quick-actions small {
+    font-size: 10px;
+  }
+  .stat-card > strong {
+    font-size: 31px;
+  }
+  .mode-option strong {
+    font-size: 12px;
+  }
+}
+@media (max-width: 580px) {
+  .overview-grid {
+    grid-template-columns: 1fr;
+  }
+  .page-heading h1 {
+    font-size: 21px;
+  }
+  .page-heading p {
+    font-size: 11px;
+  }
+  .breadcrumb {
+    gap: 5px;
+    font-size: 10px;
+  }
+  .breadcrumb > span {
+    display: none;
+  }
+  .language-switch {
+    padding: 3px;
+    gap: 0;
+  }
+  .language-switch button {
+    font-size: 10px;
+  }
+  .mode-option {
+    padding: 15px 12px;
+  }
+  .mode-option strong {
+    font-size: 11px;
+  }
+  .mode-option small {
+    font-size: 10px;
+  }
+  .radio-circle {
+    inset-inline-end: 7px;
+  }
+  .stat-top {
+    font-size: 10px;
+  }
+  .stat-icon {
+    height: 28px;
+    width: 28px;
+  }
+  .stat-card > small {
+    font-size: 9px;
+  }
+  .modal {
+    padding: 22px;
+  }
+  .modal h2 {
+    font-size: 18px;
+  }
+  .deletion-impact span {
+    font-size: 9px;
+  }
+  .login-language {
+    top: 20px;
+    inset-inline-end: 20px;
+  }
+  .login-form {
+    padding-top: 80px;
+  }
+  .login-story h1 {
+    font-size: 32px;
+  }
+  .login-story p {
+    display: block;
+    max-width: 300px;
+  }
+  .login-story {
+    min-height: 350px;
+  }
+  .status-banner p {
+    font-size: 11px;
+  }
+  .save-bar .primary {
+    min-width: 0;
+  }
+  .settings-panel {
+    padding-inline: 17px;
+  }
+}
