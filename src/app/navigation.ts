@@ -4,11 +4,17 @@ import {
   Building2,
   Settings2,
   History,
+  Activity,
+  Radio,
+  Download,
 } from "lucide-react";
 export const navigation = [
   { id: "overview", icon: LayoutDashboard },
   { id: "users", icon: Users },
   { id: "workspaces", icon: Building2 },
+  { id: "requests", icon: Activity },
+  { id: "sessions", icon: Radio },
+  { id: "releases", icon: Download },
   { id: "settings", icon: Settings2 },
   { id: "audit", icon: History },
 ] as const;

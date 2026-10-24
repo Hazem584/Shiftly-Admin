@@ -1,0 +1,120 @@
+.monitoring-page {
+  display: grid;
+  gap: 20px;
+}
+.monitor-controls,
+.monitor-title {
+  padding: 22px;
+}
+.monitor-title {
+  margin: 0;
+  font-size: 1.05rem;
+}
+.monitor-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  gap: 12px;
+  margin-block: 10px;
+}
+.monitor-toolbar label,
+.release-form label {
+  display: grid;
+  gap: 8px;
+}
+.monitor-toolbar input {
+  min-width: min(320px, 70vw);
+}
+.monitor-id {
+  display: block;
+  font-size: 0.72rem;
+  color: var(--muted);
+  overflow-wrap: anywhere;
+}
+.monitor-error {
+  color: #be3649;
+}
+.monitor-online {
+  color: #168465;
+  font-weight: 700;
+}
+.traffic-chart {
+  display: grid;
+  gap: 10px;
+  max-height: 420px;
+  overflow: auto;
+}
+.traffic-row {
+  display: grid;
+  grid-template-columns: 100px 1fr 160px;
+  gap: 12px;
+  align-items: center;
+  font-size: 0.8rem;
+}
+.traffic-track {
+  background: #edf0fa;
+  height: 15px;
+  border-radius: 5px;
+  overflow: hidden;
+}
+.traffic-bar {
+  height: 100%;
+  background: #7763e8;
+  border-radius: 5px;
+}
+.release-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+.release-form fieldset {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 18px;
+  min-width: 0;
+}
+.release-form legend {
+  font-weight: 700;
+  margin-bottom: 20px;
+  text-transform: capitalize;
+}
+.release-form .monitor-check {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.monitor-check input {
+  width: auto;
+}
+.error-detail {
+  border-bottom: 1px solid #e9e9f2;
+  padding: 16px 0;
+  overflow-wrap: anywhere;
+}
+.error-detail summary {
+  cursor: pointer;
+}
+.error-detail pre {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  background: #f6f7fa;
+  padding: 14px;
+  max-height: 360px;
+  overflow: auto;
+}
+.error-detail dd {
+  margin: 0 0 10px;
+}
+@media (max-width: 850px) {
+  .release-grid {
+    grid-template-columns: 1fr;
+  }
+  .traffic-row {
+    grid-template-columns: 90px 1fr;
+  }
+  .traffic-row span {
+    grid-column: 1 / -1;
+  }
+}

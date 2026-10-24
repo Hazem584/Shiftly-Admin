@@ -9,7 +9,29 @@ import type {
 } from "../../features/users/domain/models";
 import type { Workspace } from "../../features/workspaces/domain/models";
 import type { Audit } from "../../features/audit/domain/models";
+import type {
+  AppErrorLog,
+  AppRelease,
+  AppSession,
+  MonitoringQuery,
+  Paged,
+  RequestMetrics,
+} from "../../features/monitoring/domain/models";
 export interface AdminRepository {
+  requests(
+    query: MonitoringQuery,
+    signal?: AbortSignal,
+  ): Promise<RequestMetrics>;
+  sessions(
+    query: MonitoringQuery,
+    signal?: AbortSignal,
+  ): Promise<Paged<AppSession>>;
+  errors(
+    query: MonitoringQuery,
+    signal?: AbortSignal,
+  ): Promise<Paged<AppErrorLog>>;
+  releases(signal?: AbortSignal): Promise<AppRelease[]>;
+  saveRelease(release: AppRelease): Promise<AppRelease>;
   authorize(signal?: AbortSignal): Promise<unknown>;
   overview(signal?: AbortSignal): Promise<Overview>;
   settings(signal?: AbortSignal): Promise<Settings>;

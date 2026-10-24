@@ -8,6 +8,11 @@ export function repository(
   overrides: Partial<AdminRepository> = {},
 ): AdminRepository {
   return {
+    requests: vi.fn(),
+    sessions: vi.fn(),
+    errors: vi.fn(),
+    releases: vi.fn(),
+    saveRelease: vi.fn(),
     authorize: vi.fn(async () => ({})),
     overview: vi.fn(),
     settings: vi.fn(),

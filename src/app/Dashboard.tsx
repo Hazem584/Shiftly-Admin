@@ -13,6 +13,9 @@ import { UsersPage } from "../features/users/presentation/UsersPage";
 import { SettingsPage } from "../features/platform/presentation/SettingsPage";
 import { WorkspacesPage } from "../features/workspaces/presentation/WorkspacesPage";
 import { AuditPage } from "../features/audit/presentation/AuditPage";
+import { RequestsPage } from "../features/monitoring/presentation/RequestsPage";
+import { SessionsPage } from "../features/monitoring/presentation/SessionsPage";
+import { ReleasesPage } from "../features/monitoring/presentation/ReleasesPage";
 export function Dashboard({ session }: { session: Session }) {
   const repository = useAdminRepository();
   const { t } = useLocale();
@@ -83,6 +86,9 @@ export function Dashboard({ session }: { session: Session }) {
               {page === "settings" && <SettingsPage onSaved={reload} />}
               {page === "workspaces" && <WorkspacesPage refresh={refresh} />}
               {page === "audit" && <AuditPage refresh={refresh} />}
+              {page === "requests" && <RequestsPage refresh={refresh} />}
+              {page === "sessions" && <SessionsPage refresh={refresh} />}
+              {page === "releases" && <ReleasesPage />}
             </>
           )}
           <footer>
