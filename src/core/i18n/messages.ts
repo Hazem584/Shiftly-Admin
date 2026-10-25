@@ -221,6 +221,8 @@ export const en = {
   setupHelp: "Setup instructions are in the project README.",
   errorGeneric: "Something went wrong. Please try again.",
   errorNetwork: "Could not reach the server. Check your connection and retry.",
+  errorTimeout:
+    "The request timed out. Refresh to check its status before trying again.",
   errorSession: "Your session expired. Sign in again.",
   errorForbidden: "Your account does not have platform administrator access.",
   errorConflict: "The data changed. Refresh and review your changes.",
@@ -479,6 +481,8 @@ export const ar: Record<MessageKey, string> = {
   setupHelp: "تفاصيل الإعداد متاحة في README داخل المشروع.",
   errorGeneric: "حدث خطأ. حاول مرة أخرى.",
   errorNetwork: "تعذّر الاتصال بالخادم. تحقّق من الإنترنت وأعد المحاولة.",
+  errorTimeout:
+    "انتهت مهلة الطلب. حدّث البيانات للتأكد من نتيجته قبل المحاولة مجددًا.",
   errorSession: "انتهت الجلسة. سجّل الدخول مرة أخرى.",
   errorForbidden: "حسابك لا يملك صلاحية إدارة المنصة.",
   errorConflict: "تغيّرت البيانات. حدّث الصفحة وراجع التعديلات.",

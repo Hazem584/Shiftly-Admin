@@ -10,15 +10,17 @@ export function ErrorNotice({ error }: { error: unknown }) {
       ? "errorMissingSecret"
       : api?.code === "DELETION_PLAN_CHANGED"
         ? "planChanged"
-        : api?.code === "NETWORK_ERROR"
-          ? "errorNetwork"
-          : api?.status === 401
-            ? "errorSession"
-            : api?.status === 403
-              ? "errorForbidden"
-              : api?.status === 409
-                ? "errorConflict"
-                : "errorGeneric";
+        : api?.code === "REQUEST_TIMEOUT"
+          ? "errorTimeout"
+          : api?.code === "NETWORK_ERROR"
+            ? "errorNetwork"
+            : api?.status === 401
+              ? "errorSession"
+              : api?.status === 403
+                ? "errorForbidden"
+                : api?.status === 409
+                  ? "errorConflict"
+                  : "errorGeneric";
   return (
     <div className="error" role="alert">
       <AlertCircle size={17} />

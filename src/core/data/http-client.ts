@@ -1,4 +1,5 @@
 import { supabase } from "../auth/supabase-client";
+import { requestDeadline } from "./request-deadline";
 export class ApiError extends Error {
   constructor(
     public readonly code: string,
@@ -12,26 +13,37 @@ export async function request<T>(
   path: string,
   options: RequestInit = {},
 ): Promise<T> {
-  const { data } = await supabase!.auth.getSession();
-  if (!data.session) throw new ApiError("UNAUTHORIZED", 401);
-  let response: Response;
+  const deadline = requestDeadline(options.signal);
   try {
-    response = await fetch(`${base}/platform-admin/${path}`, {
-      ...options,
-      cache: "no-store",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${data.session.access_token}`,
-        ...options.headers,
-      },
-      signal: options.signal ?? AbortSignal.timeout(30_000),
-    });
+    const { data } = await deadline.run(() => supabase!.auth.getSession());
+    if (!data.session) throw new ApiError("UNAUTHORIZED", 401);
+    const response = await deadline.run(() =>
+      fetch(`${base}/platform-admin/${path}`, {
+        ...options,
+        cache: "no-store",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${data.session.access_token}`,
+          ...options.headers,
+        },
+        signal: deadline.signal,
+      }),
+    );
+    const body = await deadline
+      .run(() => response.json())
+      .catch((error) => {
+        if (error instanceof SyntaxError && !deadline.signal.aborted) return {};
+        throw error;
+      });
+    if (!response.ok)
+      throw new ApiError(body?.code || "HTTP_ERROR", response.status);
+    return body as T;
   } catch (error) {
-    if (options.signal?.aborted) throw error;
+    if (deadline.timedOut()) throw new ApiError("REQUEST_TIMEOUT", 408);
+    if (deadline.signal.aborted) throw deadline.signal.reason;
+    if (error instanceof ApiError) throw error;
     throw new ApiError("NETWORK_ERROR");
+  } finally {
+    deadline.dispose();
   }
-  const body = await response.json().catch(() => ({}));
-  if (!response.ok)
-    throw new ApiError(body.code || "HTTP_ERROR", response.status);
-  return body as T;
 }
