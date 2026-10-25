@@ -30,6 +30,7 @@ export const adminRepository: AdminRepository = {
     ),
   releases: (signal) => request("releases", { signal }),
   saveRelease: ({
+    testerVerified,
     platform,
     version,
     build,
@@ -42,6 +43,7 @@ export const adminRepository: AdminRepository = {
     request("releases", {
       method: "PUT",
       body: JSON.stringify({
+        testerVerified: testerVerified === true,
         platform,
         version,
         build,

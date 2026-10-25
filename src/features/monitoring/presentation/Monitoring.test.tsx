@@ -91,9 +91,38 @@ describe("monitoring workflows", () => {
       repository({ releases: vi.fn(async () => [release]), saveRelease }),
     );
     const messages = await screen.findAllByLabelText("Update message");
+    const releaseInput = screen.getAllByLabelText(
+      "Firebase tester release link",
+    )[0] as HTMLInputElement;
+    expect(
+      new RegExp(`^(?:${releaseInput.pattern})$`, "v").test(release.url),
+    ).toBe(true);
     fireEvent.change(messages[0], { target: { value: "Please update" } });
     fireEvent.click(
       screen.getAllByLabelText("Require update before continuing")[0],
+    );
+    fireEvent.click(
+      screen.getAllByLabelText(
+        /I downloaded and installed this exact build/,
+      )[0],
+    );
+    fireEvent.change(screen.getAllByLabelText("Build number")[0], {
+      target: { value: "3" },
+    });
+    expect(
+      (
+        screen.getAllByLabelText(
+          /I downloaded and installed this exact build/,
+        )[0] as HTMLInputElement
+      ).checked,
+    ).toBe(false);
+    fireEvent.change(screen.getAllByLabelText("Build number")[0], {
+      target: { value: "2" },
+    });
+    fireEvent.click(
+      screen.getAllByLabelText(
+        /I downloaded and installed this exact build/,
+      )[0],
     );
     fireEvent.click(screen.getAllByRole("button", { name: "Save release" })[0]);
     await waitFor(() =>
@@ -101,6 +130,7 @@ describe("monitoring workflows", () => {
         expect.objectContaining({
           message: "Please update",
           required: true,
+          testerVerified: true,
           revision: 3,
           build: 2,
         }),

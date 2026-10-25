@@ -44,12 +44,14 @@ export const en = {
   releaseBuild: "Build number",
   releaseMessage: "Update message",
   releaseUrl: "Firebase tester release link",
+  releaseTesterVerified:
+    "I downloaded and installed this exact build from this link using an authorized tester account on this platform.",
   releaseEnabled: "Show update notice",
   releaseRequired: "Require update before continuing",
   releaseSave: "Save release",
   releaseSaved: "Release saved.",
   releaseHelp:
-    "Use the testing_uri / tester release link, not the one-hour binary_download_uri. Testers need release access. Installation requires device approval. Refresh to resolve a conflicting edit.",
+    "Firebase testing only (Android/iOS). Use the exact /testerapps/APP_ID/releases/RELEASE_ID link, not a temporary download URL. Test download and installation as an invited tester before confirming a required update. Refresh to resolve a conflicting edit.",
   refreshRelease: "Reload saved release",
   overview: "Overview",
   users: "Users",
@@ -309,12 +311,14 @@ export const ar: Record<MessageKey, string> = {
   releaseBuild: "رقم البناء",
   releaseMessage: "رسالة التحديث",
   releaseUrl: "رابط الإصدار للمختبرين في Firebase",
+  releaseTesterVerified:
+    "نزّلت وثبّت نفس رقم البناء من الرابط ده بحساب مختبر مصرح له على المنصة دي.",
   releaseEnabled: "إظهار تنبيه التحديث",
   releaseRequired: "التحديث مطلوب قبل المتابعة",
   releaseSave: "حفظ الإصدار",
   releaseSaved: "تم حفظ الإصدار.",
   releaseHelp:
-    "استخدم رابط المختبرين testing_uri وليس رابط التنزيل المؤقت لمدة ساعة. يلزم منح المستخدم صلاحية الإصدار. التثبيت يحتاج موافقة الجهاز. أعد التحميل عند تعارض التعديلات.",
+    "Firebase للاختبار فقط على Android وiOS. استخدم رابط الإصدار المحدد /testerapps/APP_ID/releases/RELEASE_ID. جرّب تنزيله وتثبيته بحساب مختبر مدعو قبل تأكيد التحديث الإجباري. أعد التحميل عند تعارض التعديلات.",
   refreshRelease: "تحميل الإصدار المحفوظ",
   overview: "نظرة عامة",
   users: "المستخدمون",

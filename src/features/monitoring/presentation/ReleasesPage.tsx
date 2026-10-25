@@ -17,21 +17,23 @@ function ReleaseForm({
   const repository = useAdminRepository();
   const { t } = useLocale();
   const [draft, setDraft] = useState<AppRelease>(
-    saved ?? {
-      platform,
-      version: "1.0.0",
-      build: 1,
-      message: "",
-      url: "",
-      enabled: false,
-      required: false,
-      revision: 0,
-    },
+    saved
+      ? { ...saved, testerVerified: false }
+      : {
+          platform,
+          version: "1.0.0",
+          build: 1,
+          message: "",
+          url: "",
+          enabled: false,
+          required: false,
+          revision: 0,
+        },
   );
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<unknown>(null);
   function change(update: Partial<AppRelease>) {
-    setDraft((v) => ({ ...v, ...update }));
+    setDraft((v) => ({ ...v, testerVerified: false, ...update }));
   }
   return (
     <form
@@ -42,7 +44,7 @@ function ReleaseForm({
         setError(null);
         try {
           const result = await repository.saveRelease(draft);
-          setDraft(result);
+          setDraft({ ...result, testerVerified: false });
           onSaved(result);
         } catch (err) {
           setError(err);
@@ -91,7 +93,7 @@ function ReleaseForm({
             dir="ltr"
             required
             maxLength={1000}
-            pattern="https://appdistribution\.firebase\.google\.com/testerapps/[^\s]+"
+            pattern={String.raw`https://appdistribution\.firebase\.google\.com/testerapps/[A-Za-z0-9:._\-]+/releases/[A-Za-z0-9_\-]+/?`}
             value={draft.url}
             onChange={(e) => change({ url: e.target.value })}
           />
@@ -113,6 +115,15 @@ function ReleaseForm({
           {t("releaseRequired")}
         </label>
         <ErrorNotice error={error} />
+        <label className="monitor-check">
+          <input
+            type="checkbox"
+            required={draft.enabled && draft.required}
+            checked={draft.testerVerified === true}
+            onChange={(e) => change({ testerVerified: e.target.checked })}
+          />
+          {t("releaseTesterVerified")}
+        </label>
         <button className="primary" type="submit">
           {t(busy ? "saving" : "releaseSave")}
         </button>

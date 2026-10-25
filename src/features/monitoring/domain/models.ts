@@ -48,6 +48,7 @@ export interface AppErrorLog {
   requestId: string | null;
 }
 export interface AppRelease {
+  testerVerified?: boolean;
   platform: "android" | "ios" | "web";
   version: string;
   build: number;
