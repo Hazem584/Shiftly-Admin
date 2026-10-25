@@ -42,6 +42,8 @@ export const en = {
     "Publish a message and Firebase App Distribution tester link before app entry. Increase the build number for every release.",
   releaseVersion: "Version (e.g. 1.2.0)",
   releaseBuild: "Build number",
+  releaseBuildHelp:
+    "Copy the actual build number (versionCode) of this release from Firebase. GitHub Actions generates a large build number automatically. The notice appears only on installed builds with a lower number; changing the version name alone does not trigger it.",
   releaseMessage: "Update message",
   releaseUrl: "Firebase tester release link",
   releaseTesterVerified:
@@ -309,6 +311,8 @@ export const ar: Record<MessageKey, string> = {
     "انشر رسالة ورابط إصدار Firebase App Distribution قبل دخول التطبيق. زوّد رقم البناء مع كل إصدار.",
   releaseVersion: "الإصدار (مثال 1.2.0)",
   releaseBuild: "رقم البناء",
+  releaseBuildHelp:
+    "انسخ رقم البناء الفعلي (versionCode) لهذا الإصدار من Firebase. GitHub Actions يولّد رقم بناء كبير تلقائيًا. التنبيه يظهر فقط للنسخ المثبتة ذات رقم بناء أقل؛ تغيير اسم الإصدار وحده لا يفعّله.",
   releaseMessage: "رسالة التحديث",
   releaseUrl: "رابط الإصدار للمختبرين في Firebase",
   releaseTesterVerified:

@@ -70,6 +70,7 @@ function ReleaseForm({
           {t("releaseBuild")}
           <input
             type="number"
+            aria-describedby={`release-build-help-${platform}`}
             min={1}
             max={2147483647}
             required
@@ -77,6 +78,9 @@ function ReleaseForm({
             onChange={(e) => change({ build: Number(e.target.value) })}
           />
         </label>
+        <p className="muted" id={`release-build-help-${platform}`}>
+          {t("releaseBuildHelp")}
+        </p>
         <label>
           {t("releaseMessage")}
           <textarea
