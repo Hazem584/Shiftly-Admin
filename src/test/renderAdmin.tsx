@@ -8,6 +8,13 @@ export function repository(
   overrides: Partial<AdminRepository> = {},
 ): AdminRepository {
   return {
+    appIcons: vi.fn(async () => ({
+      revision: 0,
+      activeKey: "default",
+      icons: [],
+    })),
+    uploadAppIcon: vi.fn(),
+    selectAppIcon: vi.fn(),
     requests: vi.fn(),
     sessions: vi.fn(),
     errors: vi.fn(),

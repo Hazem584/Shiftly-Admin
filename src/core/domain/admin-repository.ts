@@ -1,4 +1,5 @@
 import type { Overview, Settings } from "../../features/platform/domain/models";
+import type { AppIconCatalog } from "../../features/app-icons/domain/models";
 import type {
   User,
   UsersPage,
@@ -18,6 +19,9 @@ import type {
   RequestMetrics,
 } from "../../features/monitoring/domain/models";
 export interface AdminRepository {
+  appIcons(signal?: AbortSignal): Promise<AppIconCatalog>;
+  uploadAppIcon(name: string, image: Blob): Promise<{ key: string }>;
+  selectAppIcon(key: string, revision: number): Promise<unknown>;
   requests(
     query: MonitoringQuery,
     signal?: AbortSignal,

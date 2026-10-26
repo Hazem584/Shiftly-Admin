@@ -1,5 +1,9 @@
 # Shiftly Control
 
+صفحة **أيقونات التطبيق** تتيح رفع عدة صور واختيار أيقونة شاشة الموبايل النشطة أو استعادة الأصلية. الصورة الجديدة تحتاج تضمينها في نسخة تطبيق جديدة أولًا؛ بعدها التبديل بين الاختيارات المضمّنة يتم من هنا عند فتح التطبيق أو الرجوع له.
+
+قبل نشر الميزة، طبّق migration الباك `20261026100000_alternate_app_icons` ثم `npm run prisma:generate`. ارفع الصور من الداشبورد قبل بناء نسخة الموبايل. Workflow Firebase يجهّز الأيقونات تلقائيًا؛ للبناء المحلي شغّل `node scripts/prepare-app-icons.mjs --defines PATH_TO_DART_DEFINES_JSON` داخل مشروع Flutter قبل `flutter build`. تفاصيل النشر وحدود المنصات في `shiftly-backend/docs/alternate-app-icons.md`.
+
 لوحة React + TypeScript + Vite لإدارة منصة Shiftly، بواجهة عربية RTL متجاوبة.
 
 ## الإمكانيات

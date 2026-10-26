@@ -1,6 +1,29 @@
 import type { AdminRepository } from "../domain/admin-repository";
 import { request } from "./http-client";
+import type { AppIconCatalog } from "../../features/app-icons/domain/models";
 export const adminRepository: AdminRepository = {
+  appIcons: async (signal) => {
+    const catalog = await request<AppIconCatalog>("app-icons", { signal });
+    const base = (import.meta.env.VITE_API_BASE_URL ?? "").replace(/\/$/, "");
+    return {
+      ...catalog,
+      icons: catalog.icons.map((icon) => ({
+        ...icon,
+        previewUrl: `${base}${icon.imagePath}`,
+      })),
+    };
+  },
+  uploadAppIcon: (name, image) => {
+    const data = new FormData();
+    data.append("name", name);
+    data.append("icon", image, "icon.png");
+    return request("app-icons", { method: "POST", body: data });
+  },
+  selectAppIcon: (key, revision) =>
+    request("app-icons/selection", {
+      method: "PUT",
+      body: JSON.stringify({ key, revision }),
+    }),
   requests: (query, signal) =>
     request(
       `monitoring/requests?${new URLSearchParams(

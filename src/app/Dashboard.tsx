@@ -16,6 +16,7 @@ import { AuditPage } from "../features/audit/presentation/AuditPage";
 import { RequestsPage } from "../features/monitoring/presentation/RequestsPage";
 import { SessionsPage } from "../features/monitoring/presentation/SessionsPage";
 import { ReleasesPage } from "../features/monitoring/presentation/ReleasesPage";
+import { AppIconsPage } from "../features/app-icons/presentation/AppIconsPage";
 export function Dashboard({ session }: { session: Session }) {
   const repository = useAdminRepository();
   const { t } = useLocale();
@@ -89,6 +90,7 @@ export function Dashboard({ session }: { session: Session }) {
               {page === "requests" && <RequestsPage refresh={refresh} />}
               {page === "sessions" && <SessionsPage refresh={refresh} />}
               {page === "releases" && <ReleasesPage />}
+              {page === "appIcons" && <AppIconsPage refresh={refresh} />}
             </>
           )}
           <footer>

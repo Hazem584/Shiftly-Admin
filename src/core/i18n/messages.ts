@@ -1,4 +1,25 @@
 export const en = {
+  appIcons: "App icons",
+  iconsLimit: "The library supports up to 12 alternate icons.",
+  iconsExplanation:
+    "Upload alternate launcher icons and choose the active icon for all users.",
+  iconsBuildNote:
+    "New images must be included in a new mobile build first. Switching between icons already included in a user's installed build needs no new update. Uploading does not change the current selection.",
+  iconsUpload: "Upload icon",
+  iconsName: "Icon name",
+  iconsImage: "Icon image",
+  iconsImageHelp:
+    "PNG, JPEG or WebP up to 4 MiB, 128–4096 pixels per side. Preview is cropped to a square and exported at 512 × 512 with a white background.",
+  iconsInvalid: "Choose a supported image within the size limits.",
+  iconsPreview: "Prepared icon preview",
+  iconsChoose: "Choose launcher icon",
+  iconsDefault: "Original app icon",
+  iconsActive: "Selected on server",
+  iconsApply: "Apply selection to users",
+  iconsSaved:
+    "Selection saved. Compatible installed builds apply it when the app opens or resumes.",
+  iconsActivationNote:
+    "An installed build keeps its current icon if it does not contain the selected image. Android launchers may refresh after the app moves to the background; iOS may display a system notice. This does not change store-listing artwork.",
   requests: "API requests",
   sessions: "User sessions",
   releases: "App updates",
@@ -268,6 +289,27 @@ export const en = {
 } as const;
 export type MessageKey = keyof typeof en;
 export const ar: Record<MessageKey, string> = {
+  appIcons: "أيقونات التطبيق",
+  iconsLimit: "مكتبة الأيقونات بتدعم ١٢ أيقونة بديلة بحد أقصى.",
+  iconsExplanation:
+    "ارفع أيقونات بديلة لشاشة الموبايل واختار الأيقونة النشطة لكل المستخدمين.",
+  iconsBuildNote:
+    "الصورة الجديدة لازم تدخل في نسخة موبايل جديدة أولًا. بعد ما المستخدم يثبت نسخة فيها الاختيارات، تقدر تبدّل بينها من هنا من غير تحديث جديد. الرفع لوحده مش بيغيّر الاختيار النشط.",
+  iconsUpload: "ارفع أيقونة",
+  iconsName: "اسم الأيقونة",
+  iconsImage: "صورة الأيقونة",
+  iconsImageHelp:
+    "PNG أو JPEG أو WebP بحد أقصى ٤ ميجابايت، ومن ١٢٨ إلى ٤٠٩٦ بكسل لكل ضلع. المعاينة بتتقص مربع وتتحفظ ٥١٢ × ٥١٢ بخلفية بيضاء.",
+  iconsInvalid: "اختار صورة مدعومة داخل حدود الحجم والمقاسات.",
+  iconsPreview: "معاينة الأيقونة الجاهزة",
+  iconsChoose: "اختار أيقونة التطبيق",
+  iconsDefault: "أيقونة التطبيق الأصلية",
+  iconsActive: "الاختيار المحفوظ على السيرفر",
+  iconsApply: "طبّق الاختيار للمستخدمين",
+  iconsSaved:
+    "تم حفظ الاختيار. النسخ التي تحتوي الأيقونة هتطبقه عند فتح التطبيق أو الرجوع له.",
+  iconsActivationNote:
+    "النسخة المثبتة بتحتفظ بأيقونتها الحالية لو الصورة المختارة مش موجودة فيها. لانشر Android ممكن يتحدث بعد خروج التطبيق للخلفية، وiOS ممكن يعرض تنبيه من النظام. ده مش بيغيّر صور صفحة المتجر.",
   requests: "طلبات الـAPI",
   sessions: "جلسات المستخدمين",
   releases: "تحديثات التطبيق",

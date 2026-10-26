@@ -6,21 +6,25 @@ export function ErrorNotice({ error }: { error: unknown }) {
   if (!error) return null;
   const api = error instanceof ApiError ? error : null;
   const key =
-    api?.code === "ADMIN_SECRET_REQUIRED"
-      ? "errorMissingSecret"
-      : api?.code === "DELETION_PLAN_CHANGED"
-        ? "planChanged"
-        : api?.code === "REQUEST_TIMEOUT"
-          ? "errorTimeout"
-          : api?.code === "NETWORK_ERROR"
-            ? "errorNetwork"
-            : api?.status === 401
-              ? "errorSession"
-              : api?.status === 403
-                ? "errorForbidden"
-                : api?.status === 409
-                  ? "errorConflict"
-                  : "errorGeneric";
+    api?.code === "APP_ICON_INVALID_IMAGE"
+      ? "iconsInvalid"
+      : api?.code === "APP_ICON_LIMIT"
+        ? "iconsLimit"
+        : api?.code === "ADMIN_SECRET_REQUIRED"
+          ? "errorMissingSecret"
+          : api?.code === "DELETION_PLAN_CHANGED"
+            ? "planChanged"
+            : api?.code === "REQUEST_TIMEOUT"
+              ? "errorTimeout"
+              : api?.code === "NETWORK_ERROR"
+                ? "errorNetwork"
+                : api?.status === 401
+                  ? "errorSession"
+                  : api?.status === 403
+                    ? "errorForbidden"
+                    : api?.status === 409
+                      ? "errorConflict"
+                      : "errorGeneric";
   return (
     <div className="error" role="alert">
       <AlertCircle size={17} />

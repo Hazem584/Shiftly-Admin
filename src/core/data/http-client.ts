@@ -22,7 +22,9 @@ export async function request<T>(
         ...options,
         cache: "no-store",
         headers: {
-          "Content-Type": "application/json",
+          ...(options.body instanceof FormData
+            ? {}
+            : { "Content-Type": "application/json" }),
           Authorization: `Bearer ${data.session.access_token}`,
           ...options.headers,
         },

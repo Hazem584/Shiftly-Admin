@@ -1,0 +1,50 @@
+.app-icons-page {
+  display: grid;
+  gap: 18px;
+}
+.app-icon-upload {
+  display: grid;
+  gap: 12px;
+  max-width: 640px;
+}
+.app-icon-upload label {
+  display: grid;
+  gap: 6px;
+}
+.app-icons-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 14px;
+  margin-block: 20px;
+}
+.app-icon-option {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  border: 2px solid var(--border, #dce5e1);
+  border-radius: 14px;
+  padding: 18px;
+  overflow-wrap: anywhere;
+  cursor: pointer;
+}
+.app-icon-option.chosen {
+  border-color: var(--accent, #246c53);
+}
+.icon-preview {
+  width: 96px;
+  height: 96px;
+  object-fit: cover;
+  border-radius: 20px;
+}
+.icon-default {
+  display: grid;
+  place-items: center;
+  background: #246c53;
+  color: white;
+  font-size: 48px;
+  font-weight: 700;
+}
+.app-icon-upload button {
+  justify-self: start;
+}
