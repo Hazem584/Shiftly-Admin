@@ -1,105 +1,49 @@
-# Shiftly Control
+# Shiftly Admin
 
-صفحة **أيقونات التطبيق** تتيح رفع عدة صور واختيار أيقونة شاشة الموبايل النشطة أو استعادة الأصلية. الصورة الجديدة تحتاج تضمينها في نسخة تطبيق جديدة أولًا؛ بعدها التبديل بين الاختيارات المضمّنة يتم من هنا عند فتح التطبيق أو الرجوع له.
+A React, TypeScript, and Vite dashboard for administering the Shiftly platform. It supports English and Arabic, including RTL layouts.
 
-قبل نشر الميزة، طبّق migration الباك `20261026100000_alternate_app_icons` ثم `npm run prisma:generate`. ارفع الصور من الداشبورد قبل بناء نسخة الموبايل. Workflow Firebase يجهّز الأيقونات تلقائيًا؛ للبناء المحلي شغّل `node scripts/prepare-app-icons.mjs --defines PATH_TO_DART_DEFINES_JSON` داخل مشروع Flutter قبل `flutter build`. تفاصيل النشر وحدود المنصات في `shiftly-backend/docs/alternate-app-icons.md`.
+## Features
 
-لوحة React + TypeScript + Vite لإدارة منصة Shiftly، بواجهة عربية RTL متجاوبة.
+- Platform statistics, users, workspaces, and audit logs.
+- Service status, maintenance notices, and announcements.
+- API activity, application sessions, and error monitoring.
+- Application update notices and alternate icon management.
 
-## الإمكانيات
+## Requirements
 
-- نظرة عامة: إجمالي المستخدمين، نشاط API خلال آخر ٥ دقائق، مساحات العمل، الحسابات المعلّقة، والتسجيلات خلال آخر ٣٠ يومًا.
-- البحث عن المستخدمين مع فلاتر وصفحات، عرض عضوياتهم، وتعليق الحساب بسبب واضح أو إعادة تفعيله.
-- أربع حالات للخدمة: `OPERATIONAL`, `MAINTENANCE`, `UPDATING`, `DISABLED`، مع عنوان ورسالة وبريد دعم ومعاينة للشاشة.
-- إعلان عام داخل التطبيق، والسماح أو المنع لإنشاء ملفات مستخدمين جديدة.
-- استعراض مساحات العمل وسجل إجراءات الإدارة. التغييرات وسجلها محفوظان معًا داخل transaction.
-- تأكيد قبل تغيير حالة المنصة، وحماية حسابات مسؤولي المنصة من التعليق، ومنع استبدال تعديل مسؤول آخر باستخدام revision.
-- إحصائيات طلبات API لآخر ٢٤ ساعة / ٧ أيام / ٣٠ يومًا، وتوزيع يومي بتوقيت القاهرة، وعدد الأخطاء ومتوسط الاستجابة وP95، وتفاصيل كل endpoint وسجل طلبات قابل للتصفية بالمستخدم.
-- متابعة جلسات Flutter وحالة الواجهة والخلفية والإصدار، وأخطاء Flutter وunhandled وAPI المرتبطة بالمستخدم والجلسة ومعرّف الطلب.
-- إعداد تحديث Android وiOS برسالة ورابط إصدار Firebase App Distribution، مع تحديث اختياري أو مطلوب قبل دخول التطبيق.
+- Node.js 24 and npm.
+- A running Shiftly backend and the same Supabase project used by the app.
+- A Supabase account authorized through the backend's `PLATFORM_ADMIN_IDS` setting.
 
-## التشغيل المحلي
+## Setup
 
-تحتاج Node.js 24. ملف `.env.local` المحلي مُجهّز ببيانات Supabase العامة، ويربط الواجهة بالباك إند المحلي. لا يحتوي مفاتيح قاعدة بيانات أو service-role.
+Copy `.env.example` to `.env.local` and configure:
 
-```powershell
-cd 'E:\MY APPS\shiftly-backend'
-npm run start:dev
-```
+- `VITE_API_BASE_URL`: the backend URL ending in `/api/v1`.
+- `VITE_SUPABASE_URL`: your Supabase project URL.
+- `VITE_SUPABASE_PUBLISHABLE_KEY`: the public client key.
 
-في terminal آخر:
-
-```powershell
-cd 'E:\MY APPS\shiftly-admin'
+```sh
+npm ci
 npm run dev
 ```
 
-افتح http://localhost:5173 وسجّل الدخول بحساب `hazemhkcyy@gmail.com` وكلمة مروره الحالية. الصلاحية تُراجع في الباك إند باستخدام UUID في `PLATFORM_ADMIN_IDS`، ولا تعتمد على كون المستخدم مدير شركة. لا يوجد حساب أو كلمة مرور افتراضية.
+Open `http://localhost:5173` and sign in with an authorized account. Add the dashboard origin to the backend's `CORS_ORIGINS`. There are no default login credentials.
 
-لإعادة الإعداد من الصفر، انسخ `.env.example` إلى `.env.local` وأكمل:
+## Build and check
 
-| المتغير                         | القيمة                                       |
-| ------------------------------- | -------------------------------------------- |
-| `VITE_API_BASE_URL`             | رابط الباك إند منتهيًا بـ `/api/v1`          |
-| `VITE_SUPABASE_URL`             | رابط مشروع Supabase نفسه المستخدم في Flutter |
-| `VITE_SUPABASE_PUBLISHABLE_KEY` | المفتاح العام فقط                            |
-
-## نشر Vercel لاحقًا
-
-1. انشر تحديث الباك إند أولًا، وأكمل migration `20261023120000_platform_control` على قاعدة البيانات المستهدفة إذا لم تكن مطبقة.
-2. في مشروع **الباك إند** على Vercel أضف `PLATFORM_ADMIN_IDS=f958c879-d60c-4cd4-8fdf-999931b6be1e` وأضف origin الداشبورد إلى قائمة `CORS_ORIGINS` الحالية، مع الاحتفاظ ببقية origins. أعد نشر الباك إند.
-3. ارفع هذا المشروع إلى مستودعك، ثم Import على Vercel باختيار Vite وNode.js 24. إعداد البناء `npm run build` والمجلد `dist` مضبوطان في `vercel.json`.
-4. أضف المتغيرات الثلاثة المذكورة أعلاه في بيئة Production، مع رابط الباك إند المنشور. متغيرات `VITE_` تظهر في ملفات المتصفح؛ لا تضع فيها أي secret. تغييراتها تحتاج build/deployment جديدًا.
-5. بعد نشر الداشبورد جرّب تسجيل الدخول وقراءة المستخدمين. نفّذ اختبار الصيانة والتعليق على بيئة اختبار أولًا.
-6. انشر نسخة Flutter المعدّلة بعد نشر الباك إند الجديد. النسخة القديمة لا تحتوي شاشة حالات المنصة، لكنها ستُمنع من APIs المحمية عند الإيقاف.
-
-لا يتم نشر أي مشروع تلقائيًا ضمن هذا التغيير. رابط الإنتاج القديم للباك إند لن يتضمن endpoints الجديدة قبل إعادة نشره.
-
-مراجع: [Vite على Vercel](https://vercel.com/docs/frameworks/frontend/vite)، [متغيرات البيئة](https://vercel.com/docs/environment-variables).
-
-## الاختبار
-
-```powershell
+```sh
 npm test
 npm run build
+npm run preview
 ```
 
-## تفعيل المراقبة وتحديثات التطبيق
+Production files are generated in `dist/`. Set the same public environment variables in your hosting provider before building. `VITE_` variables are visible in the browser; never use server credentials or service-role keys.
 
-1. في مشروع الباك إند، طبّق migration `20261024140000_monitoring_releases` ضمن عملية النشر باستخدام `npx prisma migrate deploy` على قاعدة البيانات المقصودة، ثم `npm run prisma:generate` و`npm run build`. لم تُطبّق migration على قاعدة البيانات المتصلة ضمن هذا التغيير.
-2. انشر الباك إند ثم الأدمين ثم نسخة Flutter الجديدة. التجميع يبدأ بعد نشر الكود؛ لا توجد بيانات تاريخية بأثر رجعي. مراقبة الجلسات والأخطاء تحتاج نسخة Flutter الجديدة ومستخدمًا مسجّل الدخول وله Profile.
-3. افتح «تحديثات التطبيق»، واختر المنصة وأدخل الإصدار ورقم البناء والرسالة ورابط **المختبرين للإصدار** من Firebase، ثم فعّل التنبيه واحفظه. مثال الرابط: `https://appdistribution.firebase.google.com/testerapps/APP_ID/releases/RELEASE_ID`. قارِن رقم البناء الفعلي في Flutter مع رقم البناء في الأدمين؛ رقم `version` للعرض، و`build` للمقارنة.
+## Project structure
 
-التوزيع الحالي Firebase للاختبار على Android وiOS فقط. قبل حفظ تحديث إجباري، جرّب تنزيل وتثبيت نفس البناء من الرابط بحساب مختبر مدعو ثم علّم تأكيد التجربة في الفورم. أي تعديل يلغي التأكيد ويستلزم تأكيده من جديد. بعد محاولة فتح الرابط، التطبيق يتيح المتابعة مؤقتًا لو حساب المختبر أو الجهاز لا يستطيع التثبيت.
+- `src/app/`: application composition and layout.
+- `src/features/`: feature modules.
+- `src/core/`: shared authentication, HTTP, localization, and UI.
 
-قبل نشر الباك طبّق migration `20261025100000_shared_limits_verified_releases` باستخدام `npx prisma migrate deploy` ثم `npm run prisma:generate`. الإصدارات الإجبارية القديمة تصبح اختيارية حتى إعادة تأكيد تجربة الرابط. العدادات أصبحت مشتركة في PostgreSQL؛ إعدادات الحدود وتنظيفها اليومي وتفاصيل قنوات التحديث في `shiftly-backend/docs/shared-limits-and-tester-updates.md`.
-4. عند بناء الإصدار التالي، ارفع رقم البناء مثل `flutter build apk --build-name=1.1.0 --build-number=2`، وارفعه إلى Firebase وامنح المختبرين صلاحية الإصدار قبل تفعيل رسالته. تثبيت Android يحتاج نفس applicationId ونفس شهادة التوقيع للنسخة الحالية.
-5. جرّب على جهاز عليه بناء أقدم: تظهر الرسالة قبل دخول التطبيق؛ «لاحقًا» يتخطاها حتى إعادة تشغيل التطبيق، و«حدّث الآن» يفتح Firebase لتنزيل الإصدار وتثبيته بموافقة الجهاز. التحديث المطلوب يخفي «لاحقًا». أعد فتح التطبيق بعد التثبيت للتحقق من اختفاء التنبيه ووصول رقم البناء الجديد في الجلسات. لم يُجرَ اختبار تنزيل وتثبيت حقيقي على جهاز ضمن الاختبارات المحلية.
-
-Firebase App Distribution مخصص للمختبرين الذين لديهم صلاحية الإصدار، ولا يثبت التحديث بصمت. استخدم `testing_uri` أو رابط الإصدار من الواجهة، وليس `binary_download_uri` الذي ينتهي خلال ساعة. لا يحتاج هذا الربط مفتاح Firebase إداري داخل الأدمين أو Flutter؛ رفع الإصدارات وتوزيعها يظلان من Firebase. راجع [توثيق روابط الإصدار](https://firebase.google.com/docs/app-distribution/android/distribute-cli) و[اشتراطات التثبيت والتوقيع](https://firebase.google.com/docs/app-distribution/troubleshooting?platform=android).
-
-«متصل الآن» يعني نبضة من التطبيق في الواجهة خلال آخر ٩٠ ثانية، وليس اتصال socket. الصفحة تُحدّث كل ٣٠ ثانية. تُجمع أخطاء API كطريقة الطلب وكود الحالة وكود الخطأ ومعرّف الطلب؛ التفاصيل النصية وstack لأخطاء Flutter تُنقّح من أنماط بيانات الاعتماد والبريد والروابط. لا تُجمع أجسام الطلبات أو الردود أو query strings، والمسارات محفوظة كقوالب مثل `/users/:id`. لا تُجمع أخطاء بدء التشغيل قبل تهيئة المراقبة وتسجيل الدخول.
-
-المراقبة للباك إند الذي يمر عبر NestJS؛ طلبات Supabase أو Firebase المباشرة ليست ضمن العدّ. تُستبعد طلبات الأدمين وtelemetry. تُرسل الاستجابة أولًا، ويُقاس زمن السيرفر حتى حدث `finish`، ثم يُكتب السجل في الخلفية باستخدام `waitUntil` من `@vercel/functions` لإبقاء استدعاء Vercel حيًا حتى اكتمال العمل. هذا زمن استجابة السيرفر، وليس زمن الشبكة عند جهاز المستخدم. الطلب الذي يُغلق اتصاله قبل اكتمال الرد يُسجّل بحالة `499`.
-
-التسجيل محدود بـ١٢٨ مهمة معلّقة لكل نسخة سيرفر؛ زمن انتظار transaction بحد أقصى ١٥٠٠ مللي ثانية وتنفيذها ٢٠٠٠ مللي ثانية، مع `statement_timeout` قدره ١٥٠٠ مللي ثانية. تجاوز السعة أو تعطل التخزين قد يسقط بعض السجلات، ويُسجّل تحذير. مهام `waitUntil` تظل خاضعة للمهلة القصوى لاستدعاء Vercel. يحتوي اختبار المراقبة على حالة ٢٠ طلب HTTP متزامن تكتمل ردودها بينما تخزين اللوجات متوقف عمدًا.
-
-طلبات الأدمين لها مهلة ٣٠ ثانية تشمل الحصول على جلسة الدخول وقراءة جسم الرد، مع استمرار دعم إلغاء الطلب عند مغادرة الصفحة. رسالة انتهاء المهلة تختلف عن انقطاع الشبكة. بعد انتهاء مهلة عملية حفظ، حدّث البيانات للتحقق من نتيجتها قبل إرسالها مجددًا؛ إلغاء الانتظار في المتصفح لا يتراجع عن تغيير قد يكون السيرفر نفّذه بالفعل.
-
-سياسة التنظيف: احذف طلبات API الأقدم من ٩٠ يومًا والجلسات غير النشطة والأخطاء الأقدم من ٣٠ يومًا باستدعاء `POST /api/v1/platform-admin/monitoring/cleanup` بجلستك الإدارية. الطلب ينظف دفعة محدودة (١٠٠٠٠ طلب و١٠٠٠ جلسة و١٠٠٠٠ خطأ) ويمكن تكراره حتى تصبح الأعداد صفرًا؛ يحتاج جدولة من بيئة الاستضافة عند النشر لتنفيذ السياسة تلقائيًا، ولا يعتمد على مؤقتات داخل serverless. حذف الحساب يزيل جلساته وأخطاءه ويزيل UUID الخاص به من سجل API بواسطة foreign keys.
-
-الاختبارات تغطي تأكيد إيقاف المنصة، التعامل مع تعارض تعديل الإعدادات، وسبب تعليق الحساب وإرسال الإجراء للباك إند. إعدادات الخدمة تُقرأ في Flutter كل ٣٠ ثانية وعند العودة إليه؛ أول تشغيل يحتاج اتصالًا للتحقق من الحالة. عند فقد الاتصال بعد قراءة الحالة يحتفظ التطبيق بآخر حالة معروفة. الطلبات الجارية والبيانات المحملة بالفعل لا يمكن سحبها بأثر رجعي.
-
-مصطلح «نشط مؤخرًا» يعني نشاطًا في API، وليس اتصال socket دائمًا. المستخدمون المعروضون هم ملفات Profile المنشأة عبر التطبيق؛ حسابات Supabase التي لم تُكمل bootstrap ليست ضمن العدد. منع التسجيل يوقف bootstrap الجديد ولا يمنع Supabase نفسه من إنشاء حساب هوية.
-
-## تقسيم المشروع واللغات والحذف النهائي
-
-الكود مقسّم حسب الميزات إلى `domain` و`application` و`presentation`، مع مكونات مشتركة، وطبقة HTTP مستقلة، وحقن repository للاختبارات. `src/App.tsx` مخصص لتركيب الـ providers فقط. تفاصيل التنظيم في [ARCHITECTURE.md](ARCHITECTURE.md).
-
-الواجهة تدعم العربي والإنجليزي بالكامل؛ زر اللغة يحفظ اختيارك ويبدّل RTL/LTR وتنسيق الأرقام والتواريخ. الأسماء والرسائل التي يكتبها المسؤول تظل بلغتها الأصلية.
-
-حذف الحساب يظهر من زر سلة المهملات في جدول المستخدمين. تتم معاينة مساحات العمل والسجلات والملفات المتأثرة، ثم كتابة بريد الحساب للتأكيد. تُحذف مساحات العمل التي يملكها الحساب ببيانات أعضائها، بينما تبقى حسابات الأعضاء أنفسهم والمساحات غير المملوكة له. الموارد التابعة له داخل المساحات المشتركة وسجلاتها المرتبطة قد تُحذف أيضًا. لا يمكن حذف حسابك أو أي مسؤول منصة.
-
-**وقت النشر:** طبّق migration الباك إند `20261023160000_account_deletion` أولًا، ثم أضف `SUPABASE_SERVICE_ROLE_KEY` إلى إعدادات الباك إند فقط. المستخدم اختار إضافة المفتاح وقت النشر. لا تضفه إلى `.env.local` الخاص بـ React أو إلى Flutter. قبل إضافة المفتاح يظل تأكيد الحذف غير متاح. تفاصيل التشغيل والتراجع وإعادة محاولة التنظيف في `shiftly-backend/docs/account-deletion.md`.
-
-إذا تعذّر تنظيف ملفات Supabase أو حساب تسجيل الدخول، تظهر العملية في «متابعة حذف الحسابات» ويمكن استكمالها. لا تظهر حالة «مكتمل» إلا بعد نجاح كل المراحل. يحتفظ النظام بسجل UUID مختصر للعملية لمنع استخدام جلسات الحساب المحذوف ومراجعة الإدارة.
+The companion projects are **ShiftlyApp** (Flutter client) and **ShiftlyBackend** (NestJS API). New launcher icons uploaded here must be bundled into a mobile release before devices can switch to them.
