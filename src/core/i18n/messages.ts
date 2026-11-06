@@ -6,6 +6,8 @@ export const en = {
   iconsBuildNote:
     "New images must be included in a new mobile build first. Switching between icons already included in a user's installed build needs no new update. Uploading does not change the current selection.",
   iconsUpload: "Upload icon",
+  iconsUploaded:
+    "Icon uploaded. Build and install a new app version containing this image before it can appear on phones. You can then switch to it from this page.",
   iconsName: "Icon name",
   iconsImage: "Icon image",
   iconsImageHelp:
@@ -296,6 +298,8 @@ export const ar: Record<MessageKey, string> = {
   iconsBuildNote:
     "الصورة الجديدة لازم تدخل في نسخة موبايل جديدة أولًا. بعد ما المستخدم يثبت نسخة فيها الاختيارات، تقدر تبدّل بينها من هنا من غير تحديث جديد. الرفع لوحده مش بيغيّر الاختيار النشط.",
   iconsUpload: "ارفع أيقونة",
+  iconsUploaded:
+    "تم رفع الأيقونة. لازم تبني وتثبّت نسخة جديدة من التطبيق تحتوي الصورة دي أولًا، وبعدها تقدر تبدّل ليها من الصفحة دي.",
   iconsName: "اسم الأيقونة",
   iconsImage: "صورة الأيقونة",
   iconsImageHelp:

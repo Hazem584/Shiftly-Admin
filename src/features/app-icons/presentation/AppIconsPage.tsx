@@ -25,7 +25,8 @@ export function AppIconsPage({ refresh = 0 }: { refresh?: number }) {
     [processing, setProcessing] = useState(false),
     [invalid, setInvalid] = useState(false),
     [error, setError] = useState<unknown>(null),
-    [saved, setSaved] = useState(false);
+    [saved, setSaved] = useState(false),
+    [uploaded, setUploaded] = useState(false);
   const input = useRef<HTMLInputElement>(null);
   const generation = useRef(0);
   useEffect(
@@ -50,6 +51,7 @@ export function AppIconsPage({ refresh = 0 }: { refresh?: number }) {
       <p className="muted">{t("iconsBuildNote")}</p>
       <ErrorNotice error={state.error ?? error} />
       {saved && <p role="status">{t("iconsSaved")}</p>}
+      {uploaded && <p role="status">{t("iconsUploaded")}</p>}
       <form
         className="panel app-icon-upload"
         onSubmit={async (e) => {
@@ -58,11 +60,13 @@ export function AppIconsPage({ refresh = 0 }: { refresh?: number }) {
           setBusy(true);
           setError(null);
           setSaved(false);
+          setUploaded(false);
           try {
             const result = await repository.uploadAppIcon(name, image);
             const catalog = await repository.appIcons();
             state.setData(catalog);
             setChoice(result.key);
+            setUploaded(true);
             setImage(null);
             setName("");
             if (input.current) input.current.value = "";

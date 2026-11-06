@@ -80,5 +80,8 @@ it("uploads a prepared image and does not activate it automatically", async () =
   await waitFor(() =>
     expect(uploadAppIcon).toHaveBeenCalledWith("Ramadan", blob),
   );
+  expect(
+    await screen.findByText(/Build and install a new app version containing/),
+  ).toBeTruthy();
   expect(selectAppIcon).not.toHaveBeenCalled();
 });
