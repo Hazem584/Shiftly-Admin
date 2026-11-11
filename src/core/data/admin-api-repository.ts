@@ -1,6 +1,13 @@
 import type { AdminRepository } from "../domain/admin-repository";
 import { request } from "./http-client";
 import type { AppIconCatalog } from "../../features/app-icons/domain/models";
+function queryPath(path: string, query: object): string {
+  const params = Object.entries(query)
+    .filter(([, value]) => value !== undefined && value !== "")
+    .map(([key, value]) => [key, String(value)]);
+  return `${path}?${new URLSearchParams(params)}`;
+}
+
 export const adminRepository: AdminRepository = {
   appIcons: async (signal) => {
     const catalog = await request<AppIconCatalog>("app-icons", { signal });
@@ -25,32 +32,11 @@ export const adminRepository: AdminRepository = {
       body: JSON.stringify({ key, revision }),
     }),
   requests: (query, signal) =>
-    request(
-      `monitoring/requests?${new URLSearchParams(
-        Object.entries(query)
-          .filter(([, v]) => v !== undefined && v !== "")
-          .map(([k, v]) => [k, String(v)]),
-      )}`,
-      { signal },
-    ),
+    request(queryPath("monitoring/requests", query), { signal }),
   sessions: (query, signal) =>
-    request(
-      `monitoring/sessions?${new URLSearchParams(
-        Object.entries(query)
-          .filter(([, v]) => v !== undefined && v !== "")
-          .map(([k, v]) => [k, String(v)]),
-      )}`,
-      { signal },
-    ),
+    request(queryPath("monitoring/sessions", query), { signal }),
   errors: (query, signal) =>
-    request(
-      `monitoring/errors?${new URLSearchParams(
-        Object.entries(query)
-          .filter(([, v]) => v !== undefined && v !== "")
-          .map(([k, v]) => [k, String(v)]),
-      )}`,
-      { signal },
-    ),
+    request(queryPath("monitoring/errors", query), { signal }),
   releases: (signal) => request("releases", { signal }),
   saveRelease: ({
     testerVerified,
