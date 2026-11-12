@@ -1,3 +1,4 @@
+import { usePermissions } from "../../../core/auth/admin-access";
 import { useCallback, useState } from "react";
 import { useAdminRepository } from "../../../app/ServicesProvider";
 import { useLocale } from "../../../core/i18n/LocaleProvider";
@@ -15,6 +16,7 @@ function ReleaseForm({
   onSaved: (value: AppRelease) => void;
 }) {
   const repository = useAdminRepository();
+  const { can } = usePermissions();
   const { t } = useLocale();
   const [draft, setDraft] = useState<AppRelease>(
     saved
@@ -40,6 +42,7 @@ function ReleaseForm({
       className="panel monitor-controls release-form"
       onSubmit={async (e) => {
         e.preventDefault();
+        if (!can("releases.write")) return;
         setBusy(true);
         setError(null);
         try {
@@ -53,7 +56,7 @@ function ReleaseForm({
         }
       }}
     >
-      <fieldset disabled={busy}>
+      <fieldset disabled={busy || !can("releases.write")}>
         <legend>{platform}</legend>
         <label>
           {t("releaseVersion")}

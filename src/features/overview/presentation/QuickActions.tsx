@@ -1,3 +1,4 @@
+import { usePermissions } from "../../../core/auth/admin-access";
 import { ArrowUpLeft, History, Radio, Settings2, Users } from "lucide-react";
 import { useLocale } from "../../../core/i18n/LocaleProvider";
 import type { PageId } from "../../../app/navigation";
@@ -7,6 +8,7 @@ export function QuickActions({
   onNavigate: (page: PageId) => void;
 }) {
   const { t } = useLocale();
+  const { can } = usePermissions();
   const actions = [
     {
       id: "users",
@@ -37,18 +39,28 @@ export function QuickActions({
         <Settings2 size={21} />
       </div>
       <div className="quick-actions">
-        {actions.map((action) => (
-          <button key={action.id} onClick={() => onNavigate(action.id)}>
-            <span className="icon-box">
-              <action.icon size={21} />
-            </span>
-            <span>
-              <strong>{t(action.title)}</strong>
-              <small>{t(action.description)}</small>
-            </span>
-            <ArrowUpLeft size={19} />
-          </button>
-        ))}
+        {actions
+          .filter((a) =>
+            can(
+              a.id === "users"
+                ? "users.read"
+                : a.id === "settings"
+                  ? "settings.read"
+                  : "audit.read",
+            ),
+          )
+          .map((action) => (
+            <button key={action.id} onClick={() => onNavigate(action.id)}>
+              <span className="icon-box">
+                <action.icon size={21} />
+              </span>
+              <span>
+                <strong>{t(action.title)}</strong>
+                <small>{t(action.description)}</small>
+              </span>
+              <ArrowUpLeft size={19} />
+            </button>
+          ))}
       </div>
     </section>
   );

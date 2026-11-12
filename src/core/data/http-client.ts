@@ -12,6 +12,7 @@ const base = (import.meta.env.VITE_API_BASE_URL ?? "").replace(/\/$/, "");
 export async function request<T>(
   path: string,
   options: RequestInit = {},
+  responseType: "json" | "blob" = "json",
 ): Promise<T> {
   const deadline = requestDeadline(options.signal);
   try {
@@ -31,6 +32,8 @@ export async function request<T>(
         signal: deadline.signal,
       }),
     );
+    if (responseType === "blob" && response.ok)
+      return (await deadline.run(() => response.blob())) as T;
     const body = await deadline
       .run(() => response.json())
       .catch((error) => {

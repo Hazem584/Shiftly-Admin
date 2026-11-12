@@ -1,3 +1,4 @@
+import { usePermissions } from "../../core/auth/admin-access";
 import { ChevronLeft, LogOut, ShieldCheck } from "lucide-react";
 import { useLocale } from "../../core/i18n/LocaleProvider";
 import { supabase } from "../../core/auth/supabase-client";
@@ -15,31 +16,44 @@ export function Sidebar({
   onNavigate: (page: PageId) => void;
 }) {
   const { t } = useLocale();
+  const { can, access } = usePermissions();
   return (
     <aside className={`sidebar ${open ? "open" : ""}`}>
       <Brand />
       <p className="nav-caption">{t("adminAccess")}</p>
       <nav>
-        {navigation.map((item) => (
-          <button
-            key={item.id}
-            className={`nav-item ${page === item.id ? "selected" : ""}`}
-            aria-current={page === item.id ? "page" : undefined}
-            onClick={() => onNavigate(item.id)}
-          >
-            <item.icon size={20} />
-            {t(item.id)}
-            {page === item.id && (
-              <ChevronLeft className="directional" size={16} />
-            )}
-          </button>
-        ))}
+        {navigation
+          .filter((item) => can(item.permission))
+          .map((item) => (
+            <button
+              key={item.id}
+              className={`nav-item ${page === item.id ? "selected" : ""}`}
+              aria-current={page === item.id ? "page" : undefined}
+              onClick={() => onNavigate(item.id)}
+            >
+              <item.icon size={20} />
+              {t(item.id)}
+              {page === item.id && (
+                <ChevronLeft className="directional" size={16} />
+              )}
+            </button>
+          ))}
       </nav>
       <div className="sidebar-bottom">
         <div className="admin-mark">
           <ShieldCheck size={19} />
           <span>
-            {t("platformAdmin")}
+            {t(
+              access?.role === "OWNER"
+                ? "platformAdmin"
+                : access?.role === "SUPPORT"
+                  ? "roleSupport"
+                  : access?.role === "MONITOR"
+                    ? "roleMonitor"
+                    : access?.role === "SETTINGS"
+                      ? "roleSettings"
+                      : "roleCustom",
+            )}
             <small>{t("adminAccess")}</small>
           </span>
         </div>

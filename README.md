@@ -8,12 +8,13 @@ A React, TypeScript, and Vite dashboard for administering the Shiftly platform. 
 - Service status, maintenance notices, and announcements.
 - API activity, application sessions, and error monitoring.
 - Application update notices and alternate icon management.
+- Delegated administrator roles, operational alerts, and private support reports.
 
 ## Requirements
 
 - Node.js 24 and npm.
 - A running Shiftly backend and the same Supabase project used by the app.
-- A Supabase account authorized through the backend's `PLATFORM_ADMIN_IDS` setting.
+- An owner account listed in `PLATFORM_ADMIN_IDS`, or an existing Shiftly account granted dashboard access by an owner.
 
 ## Setup
 
@@ -63,3 +64,11 @@ The companion projects are **ShiftlyApp** (Flutter client) and **ShiftlyBackend*
 | `src/shared/` | Reusable UI, styles and resource hooks |
 
 Start changes in the owning feature. Keep API calls in the repository, reuse the existing loading/error states, and add both language entries when introducing text. Run `npm test` and `npm run build` before publishing.
+
+## Administrator workflows
+
+Owners manage existing accounts from **Administrator access**. Start with a support, monitoring or settings preset, then adjust individual permissions. Permanent deletion and platform settings changes are granted separately. The sidebar and actions follow the account permissions, and the API enforces the same rules.
+
+**Operational alerts** shows error spikes, slow server acknowledgements for message sends, and old pending push notifications. The bell is visible across dashboard pages. Browser notifications work with permission while the dashboard is open; background evaluation uses the backend processing worker. Open an alert to inspect affected requests or users.
+
+**Support reports** receives reports submitted from the app. Authorized staff assign a responsible administrator, update the status and reply. Report images are private and loaded through authenticated API requests. Apply the companion backend migration before deploying these screens.

@@ -1,3 +1,4 @@
+import { usePermissions } from "../../../core/auth/admin-access";
 import { useState } from "react";
 import { useLocale } from "../../../core/i18n/LocaleProvider";
 import { ErrorNotice, Loading } from "../../../shared/ui/Feedback";
@@ -19,6 +20,7 @@ export function UsersPage({
   onChanged?: () => void;
 }) {
   const state = useUsers(refresh, compact);
+  const { can } = usePermissions();
   const { t } = useLocale();
   const [target, setTarget] = useState<{
     user: User;
@@ -86,7 +88,9 @@ export function UsersPage({
           )
         )}
       </section>
-      {!compact && <DeletionQueue refresh={refresh + localRefresh} />}
+      {!compact && can("accounts.delete") && (
+        <DeletionQueue refresh={refresh + localRefresh} />
+      )}
       {target?.action === "access" && (
         <AccessDialog
           user={target.user}

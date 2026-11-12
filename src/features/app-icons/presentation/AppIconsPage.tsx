@@ -1,3 +1,4 @@
+import { usePermissions } from "../../../core/auth/admin-access";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useAdminRepository } from "../../../app/ServicesProvider";
 import { useLocale } from "../../../core/i18n/LocaleProvider";
@@ -6,6 +7,7 @@ import { ErrorNotice, Loading } from "../../../shared/ui/Feedback";
 import { normalizeIcon } from "../application/normalize-icon";
 import "./app-icons.css";
 export function AppIconsPage({ refresh = 0 }: { refresh?: number }) {
+  const { can } = usePermissions();
   const repository = useAdminRepository(),
     { t } = useLocale();
   const state = useResource(
@@ -56,7 +58,7 @@ export function AppIconsPage({ refresh = 0 }: { refresh?: number }) {
         className="panel app-icon-upload"
         onSubmit={async (e) => {
           e.preventDefault();
-          if (!image) return;
+          if (!image || !can("icons.write")) return;
           setBusy(true);
           setError(null);
           setSaved(false);
@@ -84,7 +86,7 @@ export function AppIconsPage({ refresh = 0 }: { refresh?: number }) {
             required
             maxLength={80}
             value={name}
-            disabled={busy}
+            disabled={busy || !can("icons.write")}
             onChange={(e) => setName(e.target.value)}
           />
         </label>
@@ -94,7 +96,7 @@ export function AppIconsPage({ refresh = 0 }: { refresh?: number }) {
             ref={input}
             type="file"
             accept="image/png,image/jpeg,image/webp"
-            disabled={busy || processing}
+            disabled={busy || processing || !can("icons.write")}
             onChange={async (e) => {
               const file = e.target.files?.[0],
                 id = ++generation.current;
@@ -121,7 +123,9 @@ export function AppIconsPage({ refresh = 0 }: { refresh?: number }) {
         <button
           className="primary"
           type="submit"
-          disabled={busy || processing || !image || !name.trim()}
+          disabled={
+            busy || processing || !image || !name.trim() || !can("icons.write")
+          }
         >
           {t(busy ? "saving" : "iconsUpload")}
         </button>
@@ -150,7 +154,7 @@ export function AppIconsPage({ refresh = 0 }: { refresh?: number }) {
                     name="active-icon"
                     value={icon.key}
                     checked={selected === icon.key}
-                    disabled={busy}
+                    disabled={busy || !can("icons.write")}
                     onChange={() => {
                       setChoice(icon.key);
                       setSaved(false);
@@ -180,7 +184,9 @@ export function AppIconsPage({ refresh = 0 }: { refresh?: number }) {
             <p className="muted">{t("iconsActivationNote")}</p>
             <button
               className="primary"
-              disabled={busy || selected === state.data.activeKey}
+              disabled={
+                busy || selected === state.data.activeKey || !can("icons.write")
+              }
               onClick={async () => {
                 if (!state.data) return;
                 setBusy(true);

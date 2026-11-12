@@ -1,3 +1,18 @@
+import type { AdminAccess } from "../auth/admin-access";
+import type {
+  AdministratorCatalog,
+  SaveAdministrator,
+} from "../../features/administrators/domain/models";
+import type {
+  AlertFeed,
+  AlertPolicy,
+} from "../../features/alerts/domain/models";
+import type {
+  SupportPage,
+  SupportPerson,
+  SupportStatus,
+  SupportTicket,
+} from "../../features/support/domain/models";
 import type { Overview, Settings } from "../../features/platform/domain/models";
 import type { AppIconCatalog } from "../../features/app-icons/domain/models";
 import type {
@@ -19,6 +34,28 @@ import type {
   RequestMetrics,
 } from "../../features/monitoring/domain/models";
 export interface AdminRepository {
+  administrators(signal?: AbortSignal): Promise<AdministratorCatalog>;
+  saveAdministrator(value: SaveAdministrator): Promise<unknown>;
+  alerts(signal?: AbortSignal): Promise<AlertFeed>;
+  acknowledgeAlert(id: string): Promise<unknown>;
+  saveAlertPolicy(value: AlertPolicy): Promise<unknown>;
+  support(
+    query: { page: number; status?: SupportStatus },
+    signal?: AbortSignal,
+  ): Promise<SupportPage>;
+  supportTicket(id: string, signal?: AbortSignal): Promise<SupportTicket>;
+  supportAssignees(signal?: AbortSignal): Promise<SupportPerson[]>;
+  replySupport(id: string, body: string, clientId: string): Promise<unknown>;
+  updateSupport(
+    id: string,
+    value: {
+      revision: number;
+      status: SupportStatus;
+      assigneeId: string | null;
+      reason: string;
+    },
+  ): Promise<unknown>;
+  supportImage(id: string, signal?: AbortSignal): Promise<Blob>;
   appIcons(signal?: AbortSignal): Promise<AppIconCatalog>;
   uploadAppIcon(name: string, image: Blob): Promise<{ key: string }>;
   selectAppIcon(key: string, revision: number): Promise<unknown>;
@@ -36,7 +73,7 @@ export interface AdminRepository {
   ): Promise<Paged<AppErrorLog>>;
   releases(signal?: AbortSignal): Promise<AppRelease[]>;
   saveRelease(release: AppRelease): Promise<AppRelease>;
-  authorize(signal?: AbortSignal): Promise<unknown>;
+  authorize(signal?: AbortSignal): Promise<AdminAccess>;
   overview(signal?: AbortSignal): Promise<Overview>;
   settings(signal?: AbortSignal): Promise<Settings>;
   saveSettings(settings: Settings): Promise<Settings>;

@@ -1,3 +1,4 @@
+import { AlertsBell } from "../../features/alerts/presentation/AlertsBell";
 import { ChevronLeft, Menu } from "lucide-react";
 import { useLocale } from "../../core/i18n/LocaleProvider";
 import { LanguageSwitch } from "../../core/i18n/LanguageSwitch";
@@ -19,6 +20,7 @@ export function Topbar({ page, onMenu }: { page: PageId; onMenu: () => void }) {
         <strong>{t(page)}</strong>
       </div>
       <div className="top-meta">
+        <AlertsBell />
         <span className="connection-label">
           <span className="live-dot" />
           {t("connected")}

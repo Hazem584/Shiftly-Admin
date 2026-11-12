@@ -53,3 +53,19 @@ export const AppIconsPage = lazy(() =>
     default: module.AppIconsPage,
   })),
 );
+
+export const AdministratorsPage = lazy(() =>
+  import("../features/administrators/presentation/AdministratorsPage").then(
+    (m) => ({ default: m.AdministratorsPage }),
+  ),
+);
+export const AlertsPage = lazy(() =>
+  import("../features/alerts/presentation/AlertsPage").then((m) => ({
+    default: m.AlertsPage,
+  })),
+);
+export const SupportPage = lazy(() =>
+  import("../features/support/presentation/SupportPage").then((m) => ({
+    default: m.SupportPage,
+  })),
+);

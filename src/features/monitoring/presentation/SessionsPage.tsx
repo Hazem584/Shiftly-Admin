@@ -6,10 +6,16 @@ import { ErrorNotice, Loading } from "../../../shared/ui/Feedback";
 import { Pagination } from "../../../shared/ui/Pagination";
 import { MonitoringFilter } from "./MonitoringFilter";
 import "./monitoring.css";
-export function SessionsPage({ refresh }: { refresh: number }) {
+export function SessionsPage({
+  refresh,
+  initialUserId = "",
+}: {
+  refresh: number;
+  initialUserId?: string;
+}) {
   const repository = useAdminRepository();
   const { t, date, number } = useLocale();
-  const [userId, setUserId] = useState("");
+  const [userId, setUserId] = useState(initialUserId);
   const [page, setPage] = useState(1);
   const [errorPage, setErrorPage] = useState(1);
   const [tick, setTick] = useState(0);

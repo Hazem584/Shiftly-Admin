@@ -9,6 +9,47 @@ function queryPath(path: string, query: object): string {
 }
 
 export const adminRepository: AdminRepository = {
+  administrators: (signal) => request("administrators", { signal }),
+  saveAdministrator: (value) =>
+    request("administrators", { method: "PUT", body: JSON.stringify(value) }),
+  alerts: (signal) => request("alerts", { signal }),
+  acknowledgeAlert: (id) =>
+    request(`alerts/${id}/acknowledge`, { method: "POST" }),
+  saveAlertPolicy: ({
+    revision,
+    errorCount,
+    errorRatePercent,
+    minimumRequests,
+    chatP95Ms,
+    minimumChatRequests,
+    pushBacklogCount,
+    pushOldestSeconds,
+  }) =>
+    request("alerts/policy", {
+      method: "PUT",
+      body: JSON.stringify({
+        revision,
+        errorCount,
+        errorRatePercent,
+        minimumRequests,
+        chatP95Ms,
+        minimumChatRequests,
+        pushBacklogCount,
+        pushOldestSeconds,
+      }),
+    }),
+  support: (query, signal) => request(queryPath("support", query), { signal }),
+  supportTicket: (id, signal) => request(`support/${id}`, { signal }),
+  supportAssignees: (signal) => request("support/assignees", { signal }),
+  replySupport: (id, body, clientId) =>
+    request(`support/${id}/replies`, {
+      method: "POST",
+      body: JSON.stringify({ body, clientId }),
+    }),
+  updateSupport: (id, value) =>
+    request(`support/${id}`, { method: "PATCH", body: JSON.stringify(value) }),
+  supportImage: (id, signal) =>
+    request(`support/${id}/image`, { signal }, "blob"),
   appIcons: async (signal) => {
     const catalog = await request<AppIconCatalog>("app-icons", { signal });
     const base = (import.meta.env.VITE_API_BASE_URL ?? "").replace(/\/$/, "");

@@ -30,7 +30,7 @@ export function Modal({
       if (event.key !== "Tab") return;
       const items = [
         ...(ref.current?.querySelectorAll<HTMLElement>(
-          'button:not(:disabled),input:not(:disabled),textarea,a[href],[tabindex="0"]',
+          'button:not(:disabled),input:not(:disabled),select:not(:disabled),textarea:not(:disabled),a[href],[tabindex="0"]',
         ) ?? []),
       ];
       const first = items[0];

@@ -1,3 +1,4 @@
+import { AdminAccessProvider, permissions } from "../core/auth/admin-access";
 import { render } from "@testing-library/react";
 import { vi } from "vitest";
 import type { ReactNode } from "react";
@@ -8,6 +9,17 @@ export function repository(
   overrides: Partial<AdminRepository> = {},
 ): AdminRepository {
   return {
+    administrators: vi.fn(),
+    saveAdministrator: vi.fn(),
+    alerts: vi.fn(),
+    acknowledgeAlert: vi.fn(),
+    saveAlertPolicy: vi.fn(),
+    support: vi.fn(),
+    supportTicket: vi.fn(),
+    supportAssignees: vi.fn(),
+    replySupport: vi.fn(),
+    updateSupport: vi.fn(),
+    supportImage: vi.fn(),
     appIcons: vi.fn(async () => ({
       revision: 0,
       activeKey: "default",
@@ -20,7 +32,11 @@ export function repository(
     errors: vi.fn(),
     releases: vi.fn(),
     saveRelease: vi.fn(),
-    authorize: vi.fn(async () => ({})),
+    authorize: vi.fn(async () => ({
+      id: "owner",
+      role: "OWNER" as const,
+      permissions: [...permissions],
+    })),
     overview: vi.fn(),
     settings: vi.fn(),
     saveSettings: vi.fn(),
@@ -38,7 +54,13 @@ export function repository(
 export function renderAdmin(children: ReactNode, repo: AdminRepository) {
   return render(
     <LocaleProvider>
-      <ServicesProvider repository={repo}>{children}</ServicesProvider>
+      <ServicesProvider repository={repo}>
+        <AdminAccessProvider
+          access={{ id: "owner", role: "OWNER", permissions: [...permissions] }}
+        >
+          {children}
+        </AdminAccessProvider>
+      </ServicesProvider>
     </LocaleProvider>,
   );
 }

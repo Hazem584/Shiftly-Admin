@@ -1,3 +1,4 @@
+import { usePermissions } from "../../../core/auth/admin-access";
 import { ArrowUpLeft, Radio } from "lucide-react";
 import { useLocale } from "../../../core/i18n/LocaleProvider";
 import { modeKeys, type Settings } from "../../platform/domain/models";
@@ -9,6 +10,7 @@ export function StatusBanner({
   onManage: () => void;
 }) {
   const { t } = useLocale();
+  const { can } = usePermissions();
   const mode = modeKeys[settings.mode];
   return (
     <section className={`status-banner status-${mode.color}`}>
@@ -28,10 +30,12 @@ export function StatusBanner({
             : "servicesStopped",
         )}
       </span>
-      <button onClick={onManage}>
-        {t("manageStatus")}
-        <ArrowUpLeft size={17} />
-      </button>
+      {can("settings.read") && (
+        <button onClick={onManage}>
+          {t("manageStatus")}
+          <ArrowUpLeft size={17} />
+        </button>
+      )}
     </section>
   );
 }

@@ -1,0 +1,142 @@
+.operations-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr));
+  gap: 20px;
+  align-items: start;
+}
+.operations-fields {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  min-width: 0;
+  display: grid;
+  gap: 14px;
+}
+.operations-fields label,
+.operations-grid label {
+  display: grid;
+  gap: 8px;
+}
+.operations-fields .check-label {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+.check-label input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  margin-top: 3px;
+}
+.permission-grid {
+  display: grid;
+  gap: 12px;
+}
+.permission-danger {
+  color: #a02a2a;
+}
+.operations-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  border-bottom: 1px solid var(--border, #e1e8e5);
+  padding: 16px 0;
+}
+.operations-row small,
+.support-replies small,
+td > small {
+  display: block;
+  color: var(--muted, #61756e);
+  margin-top: 5px;
+}
+.operations-row .text-button {
+  text-align: start;
+}
+.alerts-bell {
+  position: relative;
+  min-width: 44px;
+}
+.alerts-count {
+  background: #b32a33;
+  color: white;
+  border-radius: 20px;
+  padding: 1px 7px;
+  font-size: 12px;
+}
+.operations-metrics {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 12px;
+}
+.operations-metrics dd {
+  margin: 0;
+}
+.alert-sample {
+  padding: 12px;
+  border: 1px solid var(--border, #dce6e1);
+  border-radius: 12px;
+  margin-block: 10px;
+  overflow-wrap: anywhere;
+}
+.alert-sample small,
+.alert-sample code {
+  display: block;
+  margin-block: 6px;
+}
+.support-image {
+  display: block;
+  max-width: 100%;
+  max-height: 420px;
+  object-fit: contain;
+  border-radius: 12px;
+  margin-block: 12px;
+}
+.support-replies {
+  display: grid;
+  gap: 12px;
+  max-height: 380px;
+  overflow: auto;
+  margin-block: 12px;
+}
+.support-replies article {
+  padding: 12px;
+  border-radius: 12px;
+  background: var(--background, #f4f8f6);
+}
+.preserve-lines {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.modal .operations-fields {
+  margin-block: 18px;
+}
+.modal form + form {
+  margin-block-start: 18px;
+}
+fieldset[disabled] {
+  opacity: 0.72;
+}
+form > fieldset.permission-fieldset {
+  display: contents;
+  border: 0;
+}
+.operations-grid input,
+.operations-grid select,
+.modal input,
+.modal select,
+.modal textarea {
+  max-width: 100%;
+}
+
+.sidebar nav {
+  min-height: 0;
+  overflow-y: auto;
+  flex: 1;
+}
+.sidebar-bottom {
+  flex-shrink: 0;
+}
+.sidebar .nav-caption {
+  margin-top: 26px;
+}

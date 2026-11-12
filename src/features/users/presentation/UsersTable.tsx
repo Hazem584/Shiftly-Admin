@@ -1,3 +1,4 @@
+import { usePermissions } from "../../../core/auth/admin-access";
 import { Ban, ShieldCheck, Trash2 } from "lucide-react";
 import { useLocale } from "../../../core/i18n/LocaleProvider";
 import type { User } from "../domain/models";
@@ -13,6 +14,9 @@ export function UsersTable({
   onDelete: (user: User) => void;
 }) {
   const { t, date, number } = useLocale();
+  const { can } = usePermissions();
+  const hasActions =
+    !compact && (can("users.manage") || can("accounts.delete"));
   return (
     <div className="table-scroll">
       <table>
@@ -22,7 +26,7 @@ export function UsersTable({
             <th>{t("workspace")}</th>
             <th>{t("status")}</th>
             <th>{t("lastActivity")}</th>
-            {!compact && <th>{t("actions")}</th>}
+            {hasActions && <th>{t("actions")}</th>}
           </tr>
         </thead>
         <tbody>
@@ -76,30 +80,34 @@ export function UsersTable({
                 </span>
               </td>
               <td className="date-cell">{date(user.lastSeenAt)}</td>
-              {!compact && (
+              {hasActions && (
                 <td>
                   <div className="row-actions">
-                    <button
-                      disabled={user.isPlatformAdmin}
-                      className={`action ${user.isSuspended ? "restore" : ""}`}
-                      onClick={() => onAccess(user)}
-                    >
-                      {user.isSuspended ? (
-                        <ShieldCheck size={15} />
-                      ) : (
-                        <Ban size={15} />
-                      )}
-                      {t(user.isSuspended ? "restore" : "suspend")}
-                    </button>
-                    <button
-                      disabled={user.isPlatformAdmin}
-                      className="action delete-action"
-                      aria-label={`${t("deleteAccount")}: ${user.fullName || user.email}`}
-                      title={t("deleteAccount")}
-                      onClick={() => onDelete(user)}
-                    >
-                      <Trash2 size={16} />
-                    </button>
+                    {can("users.manage") && (
+                      <button
+                        disabled={user.isPlatformAdmin}
+                        className={`action ${user.isSuspended ? "restore" : ""}`}
+                        onClick={() => onAccess(user)}
+                      >
+                        {user.isSuspended ? (
+                          <ShieldCheck size={15} />
+                        ) : (
+                          <Ban size={15} />
+                        )}
+                        {t(user.isSuspended ? "restore" : "suspend")}
+                      </button>
+                    )}
+                    {can("accounts.delete") && (
+                      <button
+                        disabled={user.isPlatformAdmin}
+                        className="action delete-action"
+                        aria-label={`${t("deleteAccount")}: ${user.fullName || user.email}`}
+                        title={t("deleteAccount")}
+                        onClick={() => onDelete(user)}
+                      >
+                        <Trash2 size={16} />
+                      </button>
+                    )}
                   </div>
                 </td>
               )}
