@@ -34,6 +34,7 @@ Open `http://localhost:5173` and sign in with an authorized account. Add the das
 ## Build and check
 
 ```sh
+npm run typecheck
 npm test
 npm run build
 npm run preview
