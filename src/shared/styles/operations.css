@@ -132,7 +132,48 @@ form > fieldset.permission-fieldset {
 .sidebar nav {
   min-height: 0;
   overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #60816f transparent;
   flex: 1;
+}
+.support-status-filter {
+  display: grid;
+  gap: 5px;
+  width: fit-content;
+  max-width: 100%;
+  margin: 16px;
+}
+.support-select {
+  min-height: 40px;
+  min-width: min(13rem, 100%);
+  padding: 6px 12px;
+  border: 1px solid #c6d6cc;
+  border-radius: 10px;
+  background-color: #f7faf8;
+  color: #234b38;
+  cursor: pointer;
+}
+@supports (appearance: base-select) {
+  .support-select,
+  .support-select::picker(select) {
+    appearance: base-select;
+  }
+  .support-select::picker(select) {
+    margin-block: 4px;
+    padding: 4px;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    box-shadow: 0 6px 18px #193d291a;
+    font: inherit;
+  }
+  .support-select option {
+    padding: 8px 12px;
+    border-radius: 7px;
+  }
+  .support-select option:is(:checked, :hover, :focus-visible) {
+    color: #174c33;
+    background: #e7f3ec;
+  }
 }
 .sidebar-bottom {
   flex-shrink: 0;

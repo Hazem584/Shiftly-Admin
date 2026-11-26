@@ -25,9 +25,10 @@ export function SupportPage({ refresh }: { refresh: number }) {
     <>
       <p>{t("supportIntro")}</p>
       <section className="panel">
-        <label>
+        <label className="support-status-filter">
           {t("status")}
           <select
+            className="support-select"
             value={status}
             onChange={(e) => {
               setStatus(e.target.value as SupportStatus | "");

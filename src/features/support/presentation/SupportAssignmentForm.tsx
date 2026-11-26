@@ -51,6 +51,7 @@ export function SupportAssignmentForm({
         <label>
           {t("status")}
           <select
+            className="support-select"
             value={status}
             onChange={(e) => setStatus(e.target.value as SupportStatus)}
           >
@@ -64,6 +65,7 @@ export function SupportAssignmentForm({
         <label>
           {t("supportAssignee")}
           <select
+            className="support-select"
             value={assignee}
             onChange={(e) => setAssignee(e.target.value)}
           >
