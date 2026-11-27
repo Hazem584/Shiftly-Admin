@@ -269,6 +269,7 @@ export const ar: Record<MessageKey, string> = {
   close: "إغلاق",
   owner: "المالك",
   members: "الأعضاء",
+  geofence: "نطاق الحضور",
   timezone: "المنطقة الزمنية",
   createdAt: "تاريخ الإنشاء",
   auditTitle: "سجل تغييرات الإدارة",

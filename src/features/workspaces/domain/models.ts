@@ -3,7 +3,8 @@ export interface Workspace {
   name: string;
   code: string;
   timezone: string;
+  geofenceMode?: "OFF" | "WARN" | "ENFORCE";
   createdAt: string;
   creator: { email: string | null; fullName: string | null };
-  _count: { memberships: number };
+  _count: { memberships: number; workLocations?: number };
 }

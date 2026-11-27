@@ -22,6 +22,7 @@ export function WorkspacesPage({ refresh }: { refresh: number }) {
                     <th>{t("workspace")}</th>
                     <th>{t("owner")}</th>
                     <th>{t("members")}</th>
+                    <th>{t("geofence")}</th>
                     <th>{t("timezone")}</th>
                     <th>{t("createdAt")}</th>
                   </tr>
@@ -42,6 +43,12 @@ export function WorkspacesPage({ refresh }: { refresh: number }) {
                       </td>
                       <td>{w.creator.fullName || w.creator.email || "â€”"}</td>
                       <td>{number(w._count.memberships)}</td>
+                      <td>
+                        {w.geofenceMode ?? "OFF"}
+                        {w._count.workLocations != null
+                          ? ` (${number(w._count.workLocations)})`
+                          : ""}
+                      </td>
                       <td dir="ltr">{w.timezone}</td>
                       <td>{date(w.createdAt)}</td>
                     </tr>

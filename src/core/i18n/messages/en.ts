@@ -270,6 +270,7 @@ export const en = {
   close: "Close",
   owner: "Owner",
   members: "Members",
+  geofence: "Geofence",
   timezone: "Time zone",
   createdAt: "Created",
   auditTitle: "Administrative activity",
